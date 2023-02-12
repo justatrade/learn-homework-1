@@ -37,7 +37,7 @@ def main():
         total[1] += 1
         total_each = 0
     print(f'Total amount sold is {total[0]}. '
-          f'With average of {total[0]/total[1]} '
+          f'With average of {total[0] / total[1]} '
           f'per each of {total[1]} models')
 
 if __name__ == "__main__":

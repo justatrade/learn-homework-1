@@ -13,7 +13,7 @@ def hello_user():
     """
     Замените pass на ваш код
     """
-    while input("How are you? ") != 'Fine':
+    while input("How are you? ") != 'Fine!':
         continue
 
 

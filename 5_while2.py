@@ -18,7 +18,7 @@
 questions_and_answers = {
     "How are you?": "Fine",
     "What are you doing?": "I'm developing now",
-    "What's the plan for the evening?": "To have fun!"
+    "What's the plan for the evening?": "To have fun!)"
 }
 
 def ask_user(answers_dict):

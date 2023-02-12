@@ -24,7 +24,7 @@ def what_to_do(age):
         return "Go to the university and get this f%#king knowledge!"
     elif age < 65:
         return "Work hard!"
-    else: return "You deserve to rest)"
+    else: return "You deserve to rest!)"
 
 def main():
     """

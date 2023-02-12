@@ -14,7 +14,7 @@ def hello_user():
     """
     Замените pass на ваш код
     """
-    answer = ''
+    answer = ' '
     while answer != 'Fine':
         try:
             answer = input("How are you? ")

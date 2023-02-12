@@ -31,7 +31,7 @@ def main():
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    random_values = ["abc", 123, "python", "wxyz", "learn"]
+    random_values = ["abc", 123, "python", "wxzz", "learn"]
     for i in range(len(random_values)):
         for j in range(len(random_values)):
             print(f'"{random_values[i]}" and "{random_values[j]}" result is '
