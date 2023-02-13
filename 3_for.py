@@ -27,18 +27,19 @@ def main():
         {'product': 'Samsung Galaxy 21', 'items_sold': [343, 390, 238, 437, 214, 494, 441, 518, 212, 288, 272, 247]},
     ]
     total_each = 0
-    total = [0, 0]  #Считаю продажи, считаю модели, чтобы посчитать среднее потом
-    for each in range(len(sales)):
-        for sold in sales[each]['items_sold']:
+    total_amount = 0
+    total_models = 0
+    for each in sales:
+        for sold in each['items_sold']:
             total_each += sold
-        print(f'{sales[each]["product"]} was sold {total_each} times. '
-              f'{total_each / len(sales[each]["items_sold"])} in average')
-        total[0] += total_each
-        total[1] += 1
+        print(f'{each["product"]} was sold {total_each} times. '
+              f'{total_each / len(each["items_sold"])} in average')
+        total_amount += total_each
+        total_models += 1
         total_each = 0
-    print(f'Total amount sold is {total[0]}. '
-          f'With average of {total[0] / total[1]} '
-          f'per each of {total[1]} models')
+    print(f'Total amount sold is {total_amount}. '
+          f'With average of {total_amount / total_models} '
+          f'per each of {total_models} models')
 
 if __name__ == "__main__":
     main()

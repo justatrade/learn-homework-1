@@ -13,46 +13,34 @@
 
 """
 import logging
-#import ephem
+import ephem
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, filters
+from telegram.ext import ApplicationBuilder
+from telegram.ext import CommandHandler, MessageHandler, filters
+
+import config
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='bot.log')
 
 
-PROXY = {
-    'proxy_url': 'socks5://t1.learn.python.ru:1080',
-    'urllib3_proxy_kwargs': {
-        'username': 'learn',
-        'password': 'python'
-    }
-}
+async def greet_user(update, context):
+    logging.INFO('The command was get: /start')
+    ephem.constellation("Earth")
+    await update.message.reply_text(f'Hello {update.effective_user.first_name}')
 
-
-def greet_user(update, context):
-    text = 'Вызван /start'
-    print(text)
-    update.message.reply_text(text)
-
-
-def talk_to_me(update, context):
+async def talk_to_me(update, context):
     user_text = update.message.text
-    print(user_text)
-    # update.message.reply_text(text)
+    logging.INFO(user_text)
+    await update.message.reply_text(user_text)
 
-
-def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY, use_context=True)
-
-    dp = mybot.dispatcher
-    dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(MessageHandler(filters.text, talk_to_me))
-
-    mybot.start_polling()
-    mybot.idle()
-
+def main() -> None:
+    app = ApplicationBuilder().token(config.BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", greet_user))
+    app.add_handler(MessageHandler(filters.TEXT, talk_to_me))
+    logging.info('Bot was started')
+    app.run_polling()
 
 if __name__ == "__main__":
     main()
