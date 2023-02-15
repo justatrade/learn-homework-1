@@ -12,8 +12,9 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 
 """
+import datetime
 import logging
-# import ephem
+import ephem
 
 from telegram.ext import ApplicationBuilder
 from telegram.ext import CommandHandler, MessageHandler, filters
@@ -22,19 +23,37 @@ import config
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
-                    filename='bot.log')
+                    filename='/home/eugene/bot.log')
 
 
 async def reply_planet(update, context):
-    #logging.INFO('The command was get: /planet')
-    #ephem.constellation("Earth")
-    user_text = update.message.text
-    await update.message.reply_text(f'{user_text.split(" ")[1]}')
+    logging.info(f'The command was get: {update.message.text}')
+    planet_set = {"Mercury", "Venus", "Mars", "Jupiter",
+                  "Saturn", "Uranus", "Neptune", "Pluto"}
+    user_input_list = update.message.text.split(" ")
+    if len(user_input_list) > 1:
+        user_planet = user_input_list[1]
+    else:
+        user_planet = None
+    if user_planet in planet_set:
+        planet = getattr(ephem, user_planet)
+        m = planet(datetime.date.today())
+        user_res = f"Planet {user_planet} is now located at " \
+                   f"{ephem.constellation(m)[1]}"
+    elif user_planet == None:
+        user_res = "Input some name of planet after the /planet command"
+    elif user_planet == "Earth":
+        user_res = "You can't say where Earth is, while being located here)"
+    else:
+        user_res = "I can't say anything about this object"
+
+    await update.message.reply_text(f'{user_res}')
 
 async def talk_to_me(update, context):
     user_text = update.message.text
-    #logging.INFO(user_text)
-    await update.message.reply_text(user_text)
+    logging.info(user_text)
+    await update.message.reply_text("Please, input some name of planet "
+                                    "after the /planet command")
 
 def main() -> None:
     app = ApplicationBuilder().token(config.BOT_TOKEN).build()
