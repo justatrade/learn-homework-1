@@ -32,10 +32,10 @@ def main():
     В ней надо заменить pass на ваш код
     """
     random_values = ["abc", 123, "python", "wxzz", "learn"]
-    for i in range(len(random_values)):
-        for j in range(len(random_values)):
-            print(f'"{random_values[i]}" and "{random_values[j]}" result is '
-                  f'{string_comparison(random_values[i], random_values[j])}')
+    for i in random_values:
+        for j in random_values:
+            print(f'"{i}" and "{j}" result is '
+                  f'{string_comparison(i, j)}')
 
 
 
